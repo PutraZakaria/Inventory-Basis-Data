@@ -1,8 +1,20 @@
-DROP DATABASE INVENTARIS; 
+select *
+from sys.databases;
+GO
 
-CREATE DATABASE INVENTARIS;
+USE [master];
+GO
 
-USE INVENTARIS;
+IF EXISTS(SELECT * FROM sys.databASes WHERE name = 'InventoryJTI')
+    DROP DATABASE [InventoryJTI];
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.databASes WHERE name = 'InventoryJTI')
+    CREATE DATABASE [InventoryJTI];
+GO
+
+USE [InventoryJTI];
+GO
 
 CREATE TABLE Level 
 (
@@ -81,22 +93,22 @@ CREATE TABLE Account
 	FOREIGN KEY(ID_Profile) REFERENCES Profile(ID_Profile)
 );
 
-INSERT INTO Account (ID_Account, ID_Profile, username, password ) VALUES
-	('A1', '1', 'JohnDoe', '110001 '),
-	('A2', '2', 'JaneSmith', '110002 '),
-	('A3', '3', 'BobJhonson', '110003 '),
-	('A4', '4', 'MaryWhite', '110004 '),
-	('A5', '5', 'AlexBrown', '110005 '),
-	('A6', '6', 'EmilyDavis', '110006 '),
-	('A7', '7', 'DavidLee', '110007 '),
-	('A8', '8', 'SarahTurner', '110008 '),
-	('A9', '9', 'MichaelJohn', '110009 '),
-	('A10', '10', 'OliviaCarter', '110010 '),
-	('A11', '11', 'LiamAnderson', '110011 '),
-	('A12', '12', 'SophiaRodriguez', '110012 '),
-	('A13', '13', 'EthanTaylor', '110013 '),
-	('A14', '14', 'AvaMiller', '110014 '),
-	('A15', '15', 'NoahGrey', '110015');
+INSERT INTO Account (ID_Account, ID_Profile, username, password) VALUES
+	('A1', 'P1', 'JohnDoe', '110001 '),
+	('A2', 'P2', 'JaneSmith', '110002 '),
+	('A3', 'P3', 'BobJhonson', '110003 '),
+	('A4', 'P4', 'MaryWhite', '110004 '),
+	('A5', 'P5', 'AlexBrown', '110005 '),
+	('A6', 'P6', 'EmilyDavis', '110006 '),
+	('A7', 'P7', 'DavidLee', '110007 '),
+	('A8', 'P8', 'SarahTurner', '110008 '),
+	('A9', 'P9', 'MichaelJohn', '110009 '),
+	('A10', 'P10', 'OliviaCarter', '110010 '),
+	('A11', 'P11', 'LiamAnderson', '110011 '),
+	('A12', 'P12', 'SophiaRodriguez', '110012 '),
+	('A13', 'P13', 'EthanTaylor', '110013 '),
+	('A14', 'P14', 'AvaMiller', '110014 '),
+	('A15', 'P15', 'NoahGrey', '110015');
 
 CREATE TABLE DetailInventory 
 (
@@ -143,39 +155,40 @@ CREATE TABLE DetailTransaction
     ID_DetailTrc	VARCHAR(10),
     StartDate		DATE,
     EndDate			DATE,
-    Guarantee		VARBINARY(MAX),
+    Guarantee		VARCHAR(15),
     Message 		TEXT,
 	PRIMARY KEY(ID_DetailTrc)
 );
 
-INSERT INTO DetailTransaction (ID_DetailTrc, StartDate, EndDate, Guarantee, Message ) VALUES
-	('DT0001', '21/04/2023', '21/04/2023', 'null', 'Silahkan ambil barang di ruang teknisi lantai 7 '),
-	('DT0002', '22/04/2023', '22/04/2023', 'KTM_01.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0003', '23/04/2023', '23/04/2023', 'KTM_02.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0004', '24/04/2023', '24/04/2023', 'null', 'Silahkan menghubungi xxxxx '),
-	('DT0005', '25/04/2023', '25/04/2023', 'KTM_03.JPG', 'Silahkan ambil barang di ruang teknisi lantai 5 '),
-	('DT0006', '26/04/2023', '26/04/2023', 'KTM_04.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0007', '27/04/2023', '27/04/2023', 'KTM_05.JPG', 'Silahkan ambil barang di ruang teknisi lantai 5 '),
-	('DT0008', '28/04/2023', '28/04/2023', 'null', 'Silahkan menghubungi xxxxx '),
-	('DT0009', '02/05/2023', '02/05/2023', 'null', 'Silahkan ambil barang di ruang teknisi lantai 7 '),
-	('DT0010', '03/05/2023', '03/05/2023', 'KTM_06.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0011', '04/05/2023', '04/05/2023', 'KTM_07.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0012', '05/05/2023', '05/05/2023', 'KTM_08.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0013', '06/05/2023', '06/05/2023', 'null', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0014', '07/05/2023', '07/05/2023', 'KTM_09.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0015', '08/05/2023', '08/05/2023', 'null', 'Silahkan menghubungi xxxxx '),
-	('DT0016', '09/05/2023', '09/05/2023', 'KTM_10.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0017', '10/05/2023', '10/05/2023', 'KTM_11.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0018', '14/05/2023', '14/05/2023', 'null', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0019', '16/05/2023', '16/05/2023', 'null', 'Silahkan menghubungi xxxxx '),
-	('DT0020', '24/05/2023', '24/05/2023', 'KTM_14.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0021', '07/06/2023', '07/06/2023', 'KTM_13.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0022', '08/06/2023', '08/06/2023', 'null', 'Silahkan menghubungi xxxxx '),
-	('DT0023', '09/06/2023', '09/06/2023', 'null', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0024', '09/06/2023', '09/06/2023', 'KTM_14.JPG', 'Silahkan menghubungi xxxxx '),
-	('DT0025', '09/06/2023', '09/06/2023', 'null', 'Silahkan ambil barang di ruang teknisi lantai 7 '),
-	('DT0026', '09/06/2023', '09/06/2023', 'KTM_15.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6 '),
-	('DT0027', '09/06/2023', '09/06/2023', 'KTM_16.JPG', 'Silahkan ambil barang di ruang teknisi lantai 5');
+INSERT INTO DetailTransaction (ID_DetailTrc, StartDate, EndDate, Guarantee, Message) VALUES
+	('DT0001', '2023-04-21', '2023-04-21', 'null', 'Silahkan ambil barang di ruang teknisi lantai 7'),
+	('DT0002', '2023-04-22', '2023-04-22', 'KTM_01.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0003', '2023-04-23', '2023-04-23', 'KTM_02.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0004', '2023-04-24', '2023-04-24', 'null', 'Silahkan menghubungi xxxxx'),
+	('DT0005', '2023-04-25', '2023-04-25', 'KTM_03.JPG', 'Silahkan ambil barang di ruang teknisi lantai 5'),
+	('DT0006', '2023-04-26', '2023-04-26', 'KTM_04.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0007', '2023-04-27', '2023-04-27', 'KTM_05.JPG', 'Silahkan ambil barang di ruang teknisi lantai 5'),
+	('DT0008', '2023-04-28', '2023-04-28', 'null', 'Silahkan menghubungi xxxxx'),
+	('DT0009', '2023-05-02', '2023-05-02', 'null', 'Silahkan ambil barang di ruang teknisi lantai 7'),
+	('DT0010', '2023-05-03', '2023-05-03', 'KTM_06.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0011', '2023-05-04', '2023-05-04', 'KTM_07.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0012', '2023-05-05', '2023-05-05', 'KTM_08.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0013', '2023-05-06', '2023-05-06', 'null', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0014', '2023-05-07', '2023-05-07', 'KTM_09.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0015', '2023-05-08', '2023-05-08', 'null', 'Silahkan menghubungi xxxxx'),
+	('DT0016', '2023-05-09', '2023-05-09', 'KTM_10.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0017', '2023-05-10', '2023-05-10', 'KTM_11.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0018', '2023-05-14', '2023-05-14', 'null', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0019', '2023-05-16', '2023-05-16', 'null', 'Silahkan menghubungi xxxxx'),
+	('DT0020', '2023-05-24', '2023-05-24', 'KTM_14.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0021', '2023-06-07', '2023-06-07', 'KTM_13.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0022', '2023-06-08', '2023-06-08', 'null', 'Silahkan menghubungi xxxxx'),
+	('DT0023', '2023-06-09', '2023-06-09', 'null', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0024', '2023-06-09', '2023-06-09', 'KTM_14.JPG', 'Silahkan menghubungi xxxxx'),
+	('DT0025', '2023-06-09', '2023-06-09', 'null', 'Silahkan ambil barang di ruang teknisi lantai 7'),
+	('DT0026', '2023-06-09', '2023-06-09', 'KTM_15.JPG', 'Silahkan ambil barang di ruang teknisi lantai 6'),
+	('DT0027', '2023-06-09', '2023-06-09', 'KTM_16.JPG', 'Silahkan ambil barang di ruang teknisi lantai 5');
+
 
 CREATE TABLE Transactions 
 (
