@@ -1,0 +1,18 @@
+
+select *
+from sys.databases;
+GO
+
+USE [master];
+GO
+
+IF EXISTS(SELECT * FROM sys.databASes WHERE name = 'TOKOPAKAIAN')
+    DROP DATABASE [TOKOPAKAIAN];
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.databASes WHERE name = 'TOKOPAKAIAN')
+    CREATE DATABASE [TOKOPAKAIAN];
+GO
+
+USE [TOKOPAKAIAN];
+GO
